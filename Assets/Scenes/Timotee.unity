@@ -361,7 +361,7 @@ MonoBehaviour:
     m_ActionId: b4512dc3-0c28-499c-8544-cd22af8678c2
     m_ActionName: Normal Actions/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Mouse Keyboard
   m_DefaultActionMap: Normal Actions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
