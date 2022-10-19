@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: bc27aa443a5ecf246b19438f42581318
+guid: 876882f974d03d145b9256408024afe8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: light 1.6
+    second: VeryHardAttack
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,21 +36,21 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: light 1.6
+      name: VeryHardAttack
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 80
-      lastFrame: 100
+      firstFrame: 0
+      lastFrame: 146
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1

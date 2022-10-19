@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b72a55199ba2aaa4e9c5dd0c494e6eab
+guid: 7dc635f565aa4494886866fda3634527
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: light 2.6
+    second: DodgeForward
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,20 +36,20 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: light 2.6
+      name: DodgeForward
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 80
-      lastFrame: 90
+      firstFrame: 0
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0

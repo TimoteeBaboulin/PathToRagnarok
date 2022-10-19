@@ -39,7 +39,7 @@ ModelImporter:
       name: light 1.5
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 30
+      firstFrame: 0
       lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
