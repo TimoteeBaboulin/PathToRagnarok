@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,10 +9,16 @@ public class InputsTest : MonoBehaviour
 
     [SerializeField] private float _heavyAttackDelay = 0.5f;
     [SerializeField] private GameObject _cameraAnchor = null;
+    private PlayerSFM SFM;
     private Vector2 _movement = Vector2.zero;
     private Vector2 _cameraMovement = Vector2.zero;
     private bool _block = false;
     private bool _heavy = false;
+
+    private void Start()
+    {
+        SFM = new PlayerSFM(this);
+    }
 
     public void OnMovement(InputValue value)
     {
@@ -82,6 +89,8 @@ public class InputsTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SFM.Update(Time.deltaTime);
+        
         Vector3 newMovement = _cameraAnchor.transform.forward * _movement.y + _cameraAnchor.transform.right * _movement.x;
         newMovement.y = 0;
         newMovement.Normalize();
@@ -101,7 +110,7 @@ public class InputsTest : MonoBehaviour
 
     private void LightAttack()
     {
-        Debug.Log("Light Attack");
+        SFM.LightAttack();
     }
 
     private void Dodge()
