@@ -1,37 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+public class PlayerSFM{
+    private readonly Player _player;
 
-public class PlayerSFM
-{
-    public PlayerState _currentState { get; private set; }
-    private InputsTest _player = null;
-
-    public PlayerSFM(InputsTest player)
-    {
+    public PlayerSFM(Player player){
         _player = player;
-        _currentState = PlayerState.Idle;
-        _currentState.Start(_player);
-    }
-    
-    public void ChangeState(PlayerState state)
-    {
-        if (state == null || state == _currentState) return;
-        _currentState.Exit(_player);
-        _currentState = state;
-        _currentState.Start(_player);
+        CurrentState = PlayerState.Idle;
+        CurrentState.Start(_player);
     }
 
-    public void Update(float timeElapsed)
-    {
-        _currentState.Update(_player, timeElapsed);
-        if (_currentState.CheckTransition(out PlayerState state))
+    public PlayerState CurrentState{ get; private set; }
+
+    public void ChangeState(PlayerState state){
+        if (state == null || state == CurrentState) return;
+        CurrentState.Exit();
+        CurrentState = state;
+        CurrentState.Start(_player);
+    }
+
+    public void Update(float timeElapsed){
+        CurrentState.Update(timeElapsed);
+        if (CurrentState.CheckTransition(out var state))
             ChangeState(state);
     }
 
-    public void LightAttack()
-    {
-        if (_currentState.LightAttack(out PlayerState state))
+    public void LightAttack(){
+        if (CurrentState.InputLightAttack(out var state))
+            ChangeState(state);
+    }
+
+    public void Block(){
+        if (CurrentState.InputBlock(out var state))
+            ChangeState(state);
+    }
+
+    public void Rage(){
+        if (CurrentState.InputRage(out var state))
+            ChangeState(state);
+    }
+
+    public void Dodge(){
+        if (CurrentState.InputDodge(out var state))
+            ChangeState(state);
+    }
+    
+    public void HeavyAttack(){
+        if (CurrentState.InputHeavyAttack(out var state))
+            ChangeState(state);
+    }
+    
+    public void UseConsumable(){
+        if (CurrentState.InputConsumable(out var state))
+            ChangeState(state);
+    }
+    
+    public void UseRune(){
+        if (CurrentState.InputRune(out var state))
             ChangeState(state);
     }
 }

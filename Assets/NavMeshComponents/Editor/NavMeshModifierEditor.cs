@@ -1,18 +1,15 @@
 using UnityEngine.AI;
 
-namespace UnityEditor.AI
-{
+namespace UnityEditor.AI{
     [CanEditMultipleObjects]
     [CustomEditor(typeof(NavMeshModifier))]
-    class NavMeshModifierEditor : Editor
-    {
-        SerializedProperty m_AffectedAgents;
-        SerializedProperty m_Area;
-        SerializedProperty m_IgnoreFromBuild;
-        SerializedProperty m_OverrideArea;
+    internal class NavMeshModifierEditor : Editor{
+        private SerializedProperty m_AffectedAgents;
+        private SerializedProperty m_Area;
+        private SerializedProperty m_IgnoreFromBuild;
+        private SerializedProperty m_OverrideArea;
 
-        void OnEnable()
-        {
+        private void OnEnable(){
             m_AffectedAgents = serializedObject.FindProperty("m_AffectedAgents");
             m_Area = serializedObject.FindProperty("m_Area");
             m_IgnoreFromBuild = serializedObject.FindProperty("m_IgnoreFromBuild");
@@ -21,20 +18,17 @@ namespace UnityEditor.AI
             NavMeshVisualizationSettings.showNavigation++;
         }
 
-        void OnDisable()
-        {
+        private void OnDisable(){
             NavMeshVisualizationSettings.showNavigation--;
         }
 
-        public override void OnInspectorGUI()
-        {
+        public override void OnInspectorGUI(){
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(m_IgnoreFromBuild);
 
             EditorGUILayout.PropertyField(m_OverrideArea);
-            if (m_OverrideArea.boolValue)
-            {
+            if (m_OverrideArea.boolValue){
                 EditorGUI.indentLevel++;
                 NavMeshComponentsGUIUtility.AreaPopup("Area Type", m_Area);
                 EditorGUI.indentLevel--;

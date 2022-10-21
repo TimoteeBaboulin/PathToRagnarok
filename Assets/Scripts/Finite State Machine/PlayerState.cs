@@ -1,86 +1,74 @@
-using UnityEngine;
+public class PlayerState{
+    public static readonly PlayerAttack1 Attack1 = new();
+    public static readonly PlayerAttack2 Attack2 = new();
+    public static readonly PlayerAttack3 Attack3 = new();
 
-public class PlayerState
-{
-    public static PlayerAttack1 Attack1 = new PlayerAttack1();
-    public static PlayerAttack2 Attack2 = new PlayerAttack2();
-    public static PlayerAttack3 Attack3 = new PlayerAttack3();
-    public static PlayerIdle Idle = new PlayerIdle();
+    public static readonly PlayerAttackHeavy AttackHeavy = new();
+    public static readonly PlayerAttackHeavyCharged AttackHeavyCharged = new();
 
-    public virtual void Update(InputsTest player, float timeElapsed)
-    {
-        Debug.Log("Updating PlayerState");
-    }
-    
-    public virtual void Start(InputsTest player)
-    {
-        Debug.Log("Starting PlayerState");
-    }
-    
-    public virtual void Exit(InputsTest player)
-    {
-        Debug.Log("Exiting PlayerState");
+    public static readonly PlayerBlock Block = new();
+    public static readonly PlayerBlockLazy BlockLazy = new();
+    public static readonly PlayerParry Parry = new();
+
+    public static readonly PlayerConsumable Consumable = new();
+    public static readonly PlayerRage Rage = new();
+    public static readonly PlayerRune Rune = new();
+
+    public static readonly PlayerDeath Death = new();
+    public static readonly PlayerDodge Dodge = new();
+
+    public static readonly PlayerHitStun HitStun = new();
+    public static readonly PlayerIdle Idle = new();
+
+    protected Player _player;
+
+    public virtual void Update(float timeElapsed){
     }
 
-    //
-    public virtual bool Dodge(out PlayerState state)
-    {
+    public virtual void Start(Player player){
+        _player = player;
+    }
+
+    public virtual void Exit(){
+    }
+
+    public virtual bool InputDodge(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool LightAttack(out PlayerState state)
-    {
+    public virtual bool InputLightAttack(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool HeavyAttack(out PlayerState state)
-    {
+    public virtual bool InputHeavyAttack(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool Consumable(out PlayerState state)
-    {
+    public virtual bool InputConsumable(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool Rune(out PlayerState state)
-    {
+    public virtual bool InputRune(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool Rage(out PlayerState state)
-    {
+    public virtual bool InputRage(out PlayerState state){
         state = null;
         return false;
     }
 
-    public virtual bool CheckTransition(out PlayerState state)
-    {
+    public virtual bool InputBlock(out PlayerState state){
         state = null;
         return false;
     }
-}
 
-public class PlayerIdle : PlayerState
-{
-    public override void Update(InputsTest player, float timeElapsed)
-    {
-        Debug.Log("Idling");
-    }
-
-    public override void Start(InputsTest player)
-    {
-        player.GetComponent<MeshRenderer>().material.color = Color.white;
-    }
-
-    public override bool LightAttack(out PlayerState state)
-    {
-        state = Attack1;
-        return true;
+    public virtual bool CheckTransition(out PlayerState state){
+        state = null;
+        return false;
     }
 }

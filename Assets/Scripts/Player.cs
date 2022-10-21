@@ -1,0 +1,133 @@
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Player : MonoBehaviour{
+
+    public static event Action<float> OnStaminaChange;
+    
+    public float Speed = 5;
+    private int _stamina = 100;
+    public int Stamina{
+        get => _stamina;
+    }
+
+    [SerializeField] private float _heavyAttackDelay = 0.5f;
+    [SerializeField] private GameObject _cameraAnchor;
+    private bool _block = false;
+    private Vector2 _cameraMovement = Vector2.zero;
+    private bool _heavy;
+    private Vector2 _movement = Vector2.zero;
+    private PlayerSFM SFM;
+
+    private void Start(){
+        SFM = new PlayerSFM(this);
+    }
+
+    // Update is called once per frame
+    private void Update(){
+        SFM.Update(Time.deltaTime);
+
+        var newMovement =
+            _cameraAnchor.transform.forward * _movement.y + _cameraAnchor.transform.right * _movement.x;
+        newMovement.y = 0;
+        newMovement.Normalize();
+        transform.position += newMovement * Speed * Time.deltaTime;
+
+        if (_cameraAnchor == null) return;
+        var cameraRotation = _cameraAnchor.transform.rotation.eulerAngles;
+        cameraRotation.x += _cameraMovement.y;
+        cameraRotation.y += _cameraMovement.x;
+        _cameraAnchor.transform.rotation = Quaternion.Euler(cameraRotation);
+    }
+
+    public void LoseStamina(int staminaLoss){
+        _stamina -= staminaLoss;
+        OnStaminaChange?.Invoke(_stamina);
+    }
+
+    public void OnMovement(InputValue value){
+        _movement = value.Get<Vector2>();
+    }
+
+    public void OnCameraMovement(InputValue value){
+        _cameraMovement = value.Get<Vector2>();
+    }
+
+    public void OnBlock(){
+        Debug.Log("Block");
+        Block();
+    }
+
+    public void OnLightAttack(){
+        LightAttack();
+    }
+
+    public void OnHeavyAttack(InputValue value){
+        var isPressed = value.Get<float>() > 0;
+
+        if (isPressed && !_heavy){
+            StartCoroutine(HeavyAttackCoroutine());
+        }
+        else if (!isPressed && _heavy){
+            StopAllCoroutines();
+            HeavyAttack();
+        }
+
+        _heavy = isPressed;
+    }
+
+    public void OnDodge(){
+        Dodge();
+    }
+
+    public void OnConsumable(){
+        UseConsumable();
+    }
+
+    public void OnRune(){
+        UseRune();
+    }
+
+    public void OnRage(){
+        Rage();
+    }
+
+    private void HeavyAttack(){
+        Debug.Log("Heavy Attack");
+    }
+
+    private void LightAttack(){
+        SFM.LightAttack();
+    }
+
+    private void Dodge(){
+        Debug.Log("Dodge");
+    }
+
+    private void UseConsumable(){
+        Debug.Log("Consumable");
+    }
+
+    private void UseRune(){
+        Debug.Log("Rune");
+    }
+
+    private void Rage(){
+        SFM.Rage();
+    }
+
+    private void Block(){
+        SFM.Block();
+    }
+
+    private IEnumerator HeavyAttackCoroutine(){
+        yield return new WaitForSeconds(_heavyAttackDelay);
+
+        if (_heavy)
+            Debug.Log("Charged Heavy Attack");
+
+        _heavy = false;
+    }
+}
