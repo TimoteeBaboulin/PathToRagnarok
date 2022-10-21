@@ -10,6 +10,9 @@ public class PlayerIdle : PlayerState{
     }
 
     public override bool InputDodge(out PlayerState state){
+        if (_player.Stamina < 5){
+            return base.InputDodge(out state);
+        }
         state = Dodge;
         return true;
     }

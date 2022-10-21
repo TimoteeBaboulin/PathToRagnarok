@@ -8,8 +8,8 @@ public class Player : MonoBehaviour{
     public static event Action<float> OnStaminaChange;
     
     public float Speed = 5;
-    private int _stamina = 100;
-    public int Stamina{
+    private float _stamina = 100;
+    public float Stamina{
         get => _stamina;
     }
 
@@ -42,8 +42,9 @@ public class Player : MonoBehaviour{
         _cameraAnchor.transform.rotation = Quaternion.Euler(cameraRotation);
     }
 
-    public void LoseStamina(int staminaLoss){
+    public void LoseStamina(float staminaLoss){
         _stamina -= staminaLoss;
+        if (_stamina < 0) _stamina = 0;
         OnStaminaChange?.Invoke(_stamina);
     }
 

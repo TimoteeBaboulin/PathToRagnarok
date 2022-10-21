@@ -22,15 +22,13 @@ public class PlayerState{
 
     protected Player _player;
 
-    public virtual void Update(float timeElapsed){
-    }
+    public virtual void Update(float timeElapsed){ }
 
     public virtual void Start(Player player){
         _player = player;
     }
 
-    public virtual void Exit(){
-    }
+    public virtual void Exit(){ }
 
     public virtual bool InputDodge(out PlayerState state){
         state = null;
