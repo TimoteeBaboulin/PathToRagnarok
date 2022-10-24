@@ -1,7 +1,7 @@
-public class PlayerSFM{
+public class PlayerFSM{
     private readonly Player _player;
 
-    public PlayerSFM(Player player){
+    public PlayerFSM(Player player){
         _player = player;
         CurrentState = PlayerState.Idle;
         CurrentState.Start(_player);

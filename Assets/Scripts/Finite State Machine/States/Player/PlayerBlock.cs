@@ -6,7 +6,6 @@ public class PlayerBlock : PlayerState{
     public override void Start(Player player){
         base.Start(player);
         _timer = 0;
-        player.GetComponent<MeshRenderer>().material.color = Color.green;
     }
 
     public override void Update(float timeElapsed){

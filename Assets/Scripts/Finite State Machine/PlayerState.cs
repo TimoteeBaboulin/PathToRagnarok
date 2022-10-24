@@ -26,6 +26,7 @@ public class PlayerState{
 
     public virtual void Start(Player player){
         _player = player;
+        player.Animator.CrossFade("Idle", 0, 0);
     }
 
     public virtual void Exit(){ }

@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
 public class PlayerIdle : PlayerState{
-    public override void Update(float timeElapsed){
-    }
-
     public override void Start(Player player){
         base.Start(player);
-        player.GetComponent<MeshRenderer>().material.color = Color.white;
+        player.Animator.speed = 1;
     }
 
     public override bool InputDodge(out PlayerState state){

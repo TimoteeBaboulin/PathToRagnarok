@@ -7,6 +7,7 @@ public class Player : MonoBehaviour{
 
     public static event Action<float> OnStaminaChange;
     
+    //Player Stats
     public float Speed = 5;
     private float _stamina = 100;
     public float Stamina{
@@ -15,19 +16,24 @@ public class Player : MonoBehaviour{
 
     [SerializeField] private float _heavyAttackDelay = 0.5f;
     [SerializeField] private GameObject _cameraAnchor;
+
+    private Animator _animator;
+    public Animator Animator{ get => _animator; }
+    
     private bool _block = false;
     private Vector2 _cameraMovement = Vector2.zero;
     private bool _heavy;
     private Vector2 _movement = Vector2.zero;
-    private PlayerSFM SFM;
+    private PlayerFSM FSM;
 
     private void Start(){
-        SFM = new PlayerSFM(this);
+        _animator = GetComponent<Animator>();
+        FSM = new PlayerFSM(this);
     }
 
     // Update is called once per frame
     private void Update(){
-        SFM.Update(Time.deltaTime);
+        FSM.Update(Time.deltaTime);
 
         var newMovement =
             _cameraAnchor.transform.forward * _movement.y + _cameraAnchor.transform.right * _movement.x;
@@ -100,7 +106,7 @@ public class Player : MonoBehaviour{
     }
 
     private void LightAttack(){
-        SFM.LightAttack();
+        FSM.LightAttack();
     }
 
     private void Dodge(){
@@ -116,11 +122,11 @@ public class Player : MonoBehaviour{
     }
 
     private void Rage(){
-        SFM.Rage();
+        FSM.Rage();
     }
 
     private void Block(){
-        SFM.Block();
+        FSM.Block();
     }
 
     private IEnumerator HeavyAttackCoroutine(){

@@ -2,6 +2,10 @@
 
 public class PlayerAttack1 : PlayerState{
     private float _timer;
+    private float _totalTime = 1.5f;
+    private float _transitionTime = 0.2f;
+    
+    private const int _animationFrameCount = 100;
 
     public override void Update(float timeElapsed){
         _timer += timeElapsed;
@@ -9,9 +13,12 @@ public class PlayerAttack1 : PlayerState{
 
     public override void Start(Player player){
         base.Start(player);
+        
+        player.Animator.CrossFadeInFixedTime("AttackLightCombo2", _transitionTime);
+        player.Animator.speed = (_animationFrameCount / (float) 60) / _totalTime;
         player.LoseStamina(5);
+        
         _timer = 0;
-        player.GetComponent<MeshRenderer>().material.color = Color.green;
     }
     
     public override bool InputLightAttack(out PlayerState state){
@@ -23,7 +30,7 @@ public class PlayerAttack1 : PlayerState{
     }
 
     public override bool CheckTransition(out PlayerState state){
-        if (_timer > 3){
+        if (_timer > _totalTime + _transitionTime){
             state = Idle;
             return true;
         }
