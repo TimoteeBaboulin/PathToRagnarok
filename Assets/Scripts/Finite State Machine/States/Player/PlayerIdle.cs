@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class PlayerIdle : PlayerState{
+﻿public class PlayerIdle : PlayerState{
     public override void Start(Player player){
         base.Start(player);
         player.Animator.speed = 1;

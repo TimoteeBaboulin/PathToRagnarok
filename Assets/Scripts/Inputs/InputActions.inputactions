@@ -34,11 +34,11 @@
                 },
                 {
                     "name": "HeavyAttack",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "d28a33ea-8fb9-4663-879a-0dd4bb800930",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(pressPoint=1.401298E-45),Press(behavior=1)",
+                    "interactions": "Press,Press(behavior=1)",
                     "initialStateCheck": true
                 },
                 {

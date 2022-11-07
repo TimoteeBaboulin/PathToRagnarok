@@ -72,17 +72,9 @@ public class Player : MonoBehaviour{
     }
 
     public void OnHeavyAttack(InputValue value){
-        var isPressed = value.Get<float>() > 0;
-
-        if (isPressed && !_heavy){
-            StartCoroutine(HeavyAttackCoroutine());
-        }
-        else if (!isPressed && _heavy){
-            StopAllCoroutines();
-            HeavyAttack();
-        }
-
-        _heavy = isPressed;
+        //var isPressed = value.Get<float>() > 0;
+        //if (isPressed) HeavyAttack();
+        HeavyAttack();
     }
 
     public void OnDodge(){
@@ -102,7 +94,8 @@ public class Player : MonoBehaviour{
     }
 
     private void HeavyAttack(){
-        Debug.Log("Heavy Attack");
+        Debug.Log("HeavyAttack");
+        FSM.HeavyAttack();
     }
 
     private void LightAttack(){

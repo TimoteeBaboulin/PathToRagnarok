@@ -1,40 +1,35 @@
 ﻿using UnityEngine;
 
 public class PlayerAttack3 : PlayerState{
-    private float _timer;
     private float _totalTime = 1.5f;
-    private float _transitionTime = 0.2f;
-    
-    private const int _animationFrameCount = 80;
 
-    public override void Update(float timeElapsed){
-        _timer += timeElapsed;
-    }
+    private const int AnimationFrameCount = 80;
 
     public override void Start(Player player){
         base.Start(player);
         
-        player.Animator.CrossFadeInFixedTime("AttackLightCombo2", _transitionTime);
-        player.Animator.speed = (_animationFrameCount / (float) 60) / _totalTime;
+        _player.Animator.SetBool("LightAttack", true);
+        player.Animator.speed = (AnimationFrameCount / (float) 60) / _totalTime;
         player.LoseStamina(10);
-        
-        _timer = 0;
     }
 
     public override bool InputLightAttack(out PlayerState state){
-        if (_player.Stamina < 10){
-            return base.InputLightAttack(out state);
+        AnimatorStateInfo info = _player.Animator.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("AttackLightCombo2") && info.normalizedTime > 0.4f){
+            state = Attack2;
+            return true;
         }
-        state = Attack2;
-        return true;
+        return base.InputLightAttack(out state);
     }
 
     public override bool CheckTransition(out PlayerState state){
-        if (_timer > _totalTime + _transitionTime){
+        AnimatorStateInfo info = _player.Animator.GetCurrentAnimatorStateInfo(0);
+        if (info.IsName("AttackLightCombo2") && info.normalizedTime >= 0.8f){
             state = Idle;
+            _player.Animator.SetBool("LightAttack", false);
             return true;
         }
-
+        
         state = null;
         return false;
     }

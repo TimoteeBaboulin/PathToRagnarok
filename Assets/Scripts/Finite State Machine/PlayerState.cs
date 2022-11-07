@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class PlayerState{
     public static readonly PlayerAttack1 Attack1 = new();
     public static readonly PlayerAttack2 Attack2 = new();
@@ -26,7 +28,6 @@ public class PlayerState{
 
     public virtual void Start(Player player){
         _player = player;
-        player.Animator.CrossFade("Idle", 0, 0);
     }
 
     public virtual void Exit(){ }
